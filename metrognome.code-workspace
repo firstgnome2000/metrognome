@@ -27,6 +27,7 @@
 			"COPPER_AMOUNT_SYMBOL",
 			"SILVER_AMOUNT_SYMBOL",
 			"GOLD_AMOUNT_SYMBOL"
-		]
+		],
+		"julia.executablePath": "C:\\Users\\potatoo\\AppData\\Local\\Programs\\Julia-1.9.4\\bin\\julia.exe"
 	}
 }
