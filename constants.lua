@@ -17,12 +17,7 @@ local function UpdateGoldDisplay()
     if not frame:IsShown() then
         return
     end
-
-    -- Clear previous entries
-    for i = 1, #characterList do
-        characterList[i]:Hide()
-    end
-
+    
     -- Update character gold information
     local yOffset = -10
     for i, character in ipairs(characterList) do
@@ -31,6 +26,11 @@ local function UpdateGoldDisplay()
         character:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, yOffset)
         character:Show()
         yOffset = yOffset - 20
+    end
+    
+    -- Hide remaining character frames
+    for i = #characterList + 1, #frame do
+        frame[i]:Hide()
     end
 end
 
@@ -60,21 +60,21 @@ function Metrognome:OnInitialize()
     })
     frame:SetBackdropColor(0, 0, 0, 1)
     frame:Hide()
-
+    
     -- Create the title text
     local title = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     title:SetPoint("TOP", frame, "TOP", 0, -10)
     title:SetText("Metrognome Addon")
-
+    
     -- Register slash command
     self:RegisterChatCommand("income", function()
         frame:SetShown(not frame:IsShown())
         UpdateGoldDisplay()
     end)
-
+    
     -- Register console commands
     AceConsole:RegisterChatCommand("metrognome", HandleConsoleCommand)
-
+    
     -- Register events
     AceEvent:RegisterEvent("PLAYER_LOGIN", HandleEvent)
     AceEvent:RegisterEvent("PLAYER_LOGOUT", HandleEvent)
@@ -85,16 +85,20 @@ function Metrognome:OnPlayerLogin()
     -- Populate character list
     for i = 1, GetNumCharacters() do
         local name, _, _, _, _, _, _, _, _, _, money = GetCharacterInfo(i)
-        characterList[i] = CreateFrame("Frame", nil, frame)
-        characterList[i].nameText = characterList[i]:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        characterList[i].moneyText = characterList[i]:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        characterList[i].name = name
-        characterList[i].money = money
+        local character = characterList[i]
+        if not character then
+            character = CreateFrame("Frame", nil, frame)
+            characterList[i] = character
+        end
+        character.nameText = character:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        character.moneyText = character:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        character.name = name
+        character.money = money
     end
-
+    
     -- Update gold display
     UpdateGoldDisplay()
-
+    
     print("Metrognome Addon loaded!")
 end
 
