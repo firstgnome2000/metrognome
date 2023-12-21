@@ -1,0 +1,20 @@
+## Interface: 11500
+## Title: metrognome
+## Notes: total gold earnd lifetime
+## Version: 1.0
+## SavedVariables: metrognomeDB
+## Author: metrognome
+
+## X-Email: potatooo8090@gmail.com
+## X-License: MIT
+
+## X-Localizations: enUS
+## X-Website: https://chatgnome.ir
+## X-Feedback: https://chatgnome.ir/feedback.html
+
+
+embeds.xml
+locales\Locales.xml
+constants.lua
+core.lua
+modules\load_modules.xml

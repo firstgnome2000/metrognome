@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"Lua.diagnostics.globals": [
+			"ChatFontNormal",
+			"OKAY",
+			"NOT_BOUND",
+			"FACTION_ALLIANCE",
+			"FACTION_HORDE",
+			"LFG_LIST_LANGUAGE_ENUS",
+			"LFG_LIST_LANGUAGE_FRFR",
+			"LFG_LIST_LANGUAGE_DEDE",
+			"LFG_LIST_LANGUAGE_ESES",
+			"LFG_LIST_LANGUAGE_ESMX",
+			"LFG_LIST_LANGUAGE_KOKR",
+			"LFG_LIST_LANGUAGE_ITIT",
+			"LFG_LIST_LANGUAGE_PTBR",
+			"LFG_LIST_LANGUAGE_RURU",
+			"LFG_LIST_LANGUAGE_ZHCN",
+			"LFG_LIST_LANGUAGE_ZHTW",
+			"UNKNOWN",
+			"ENABLE",
+			"COPPER_AMOUNT_SYMBOL",
+			"SILVER_AMOUNT_SYMBOL",
+			"GOLD_AMOUNT_SYMBOL"
+		]
+	}
+}

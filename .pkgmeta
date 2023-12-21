@@ -1,0 +1,5 @@
+package-as: metrognome
+
+manual-changelog:
+    filename: README.md
+    markup-type: markdown
