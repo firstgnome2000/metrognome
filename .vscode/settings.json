@@ -45,7 +45,16 @@
         "ENABLE",
         "COPPER_AMOUNT_SYMBOL",
         "SILVER_AMOUNT_SYMBOL",
-        "GOLD_AMOUNT_SYMBOL"
+        "GOLD_AMOUNT_SYMBOL",
+        "lfs"
     ],
-    "julia.executablePath": "C:\\Users\\potatoo\\AppData\\Local\\Programs\\Julia-1.9.4\\bin\\julia.exe"
+    "julia.executablePath": "C:\\Users\\potatoo\\AppData\\Local\\Programs\\Julia-1.9.4\\bin\\julia.exe",
+    "Lua.workspace.library": [
+        "C:/Users/potatoo/AppData/Roaming/Code/User/globalStorage/sumneko.lua/addonManager/addons/lldebugger/module/library",
+        "c:\\Users\\potatoo\\.vscode\\extensions\\ketho.wow-api-0.12.1\\EmmyLua\\API",
+        "c:\\Users\\potatoo\\.vscode\\extensions\\ketho.wow-api-0.12.1\\EmmyLua\\Optional",
+        "C:/Users/potatoo/AppData/Roaming/Code/User/globalStorage/sumneko.lua/addonManager/addons/moneymoney/module/library",
+        "C:/Users/potatoo/AppData/Roaming/Code/User/globalStorage/sumneko.lua/addonManager/addons/luafilesystem/module/library"
+    ],
+    "Lua.workspace.checkThirdParty": false
 }

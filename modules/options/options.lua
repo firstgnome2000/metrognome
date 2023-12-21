@@ -1,8 +1,6 @@
-local Options = metrognome:NewModule('Options')
-local L = LibStub('AceLocale-3.0'):GetLocale(Options.baseName)
-local Util = metrognome:GetModule('Util')
-
---
+local options = metrognome:NewModule('Options')
+local locale = LibStub('AceLocale-3.0'):GetLocale(options.baseName)
+local util = metrognome:GetModule('Util')
 -- ─── LOCALS ─────────────────────────────────────────────────────────────────────
 --
 
@@ -58,13 +56,15 @@ function Options:GetColor(info)
 end
 
 function Options:SetColor(info, r, g, b, a)
+    if type(r) ~= "number" or type(g) ~= "number" or type(b) ~= "number" or type(a) ~= "number" then
+        error("Invalid input values")
+    end
     self.db.profile[info[#info]] = {
         ['r'] = r,
         ['g'] = g,
         ['b'] = b,
         ['a'] = a
     }
-
     Util:DebugOption(
         tostring(info[#info]),
         tostring(r)..', '..
@@ -75,7 +75,7 @@ function Options:SetColor(info, r, g, b, a)
 end
 
 function Options:SetMoney(info, value)
-    if not value or value:trim() == '' then
+    if not value or type(value) ~= "string" or not value:match("^%d*%.?%d+$") then
         value = 0
     else
         value = Util:ToCopper(value)
@@ -86,14 +86,14 @@ end
 function Options:GetMoney(info)
     local value = self:Get(info)
     if not tonumber(value) then
-        value = 0
+        error("Value is not a valid number")
     end
     return Util:FormatMoney(value, 'SMART', true)
 end
 
 function Options:ConfirmOption(info, value)
-    if value then
-        return true
+    if value ~= nil then
+        return value
     else
         return false
     end
@@ -106,7 +106,7 @@ end
 -- ─── OPTIONS TABLE ──────────────────────────────────────────────────────────────
 --
 
-optionsTable = {
+optionstable = {
     name = Options.baseName,
     handler = Options,
     type = 'group',
@@ -120,42 +120,41 @@ optionsTable = {
             order = 1
         },
         groupSystem = {
-            name = L['groupSystem'],
+            name = L["groupSystem"],
             type = 'group',
             order = 2,
-
             args = {
                 toggleSystemEnable = {
                     name = ENABLE,
                     type = 'toggle',
                     width = 'full',
                     order = 1
-                },
-            },
-        },
-    },
+                }
+            }
+        }
+    }
 }
-
 --
 -- ─── INIT ───────────────────────────────────────────────────────────────────────
 --
-
 function Options:OnInitialize()
     -- Create DB
-    self.db = LibStub('AceDB-3.0'):New(self.baseName..'DB', defaults)
+    self.db = LibStub("AceDB-3.0"):New(self.baseName .. "DB", defaults)
     self.db:RegisterDefaults(defaults)
 
     -- Create Profiles section
-    optionsTable.args.profile = LibStub('AceDBOptions-3.0'):GetOptionsTable(self.db)
+    optionsTable.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
     optionsTable.args.profile.order = 200
 
     -- Create About section
-    optionsTable.args.about = LibStub('LibAboutPanel-2.0'):AboutOptionsTable(self.baseName)
+    optionsTable.args.about = LibStub("LibAboutPanel-2.0"):AboutOptionsTable(self.baseName)
     optionsTable.args.about.order = 201
 
     -- Create Options
-    LibStub('AceConfig-3.0'):RegisterOptionsTable(self.baseName, optionsTable)
-    self.db.RegisterCallback(self, "OnProfileChanged", "RefreshConfig")
-    self.db.RegisterCallback(self, "OnProfileCopied", "RefreshConfig")
-    self.db.RegisterCallback(self, "OnProfileReset", "RefreshConfig")
+    LibStub("AceConfig-3.0"):RegisterOptionsTable(self.baseName, optionsTable)
+
+    -- Register callbacks
+    self.db:RegisterCallback("OnProfileChanged", self.RefreshConfig, self)
+    self.db:RegisterCallback("OnProfileCopied", self.RefreshConfig, self)
+    self.db:RegisterCallback("OnProfileReset", self.RefreshConfig, self)
 end
